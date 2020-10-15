@@ -5,24 +5,24 @@ import com.google.gson.annotations.SerializedName;
 public class Coordination {
 
     @SerializedName("lon")
-    Double lon;
+    String lon;
 
     @SerializedName("lat")
-    Double lat;
+    String lat;
 
-    public Double getLon() {
+    public String getLon() {
         return lon;
     }
 
-    public void setLon(Double lon) {
+    public void setLon(String lon) {
         this.lon = lon;
     }
 
-    public Double getLat() {
+    public String getLat() {
         return lat;
     }
 
-    public void setLat(Double lat) {
+    public void setLat(String lat) {
         this.lat = lat;
     }
 }

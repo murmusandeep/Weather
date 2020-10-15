@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     EditText mCityName;
     ImageView mSearch;
     TextView mNameOfCity;
-    TextView mTempText, mDescText, mHumidityText, mLatitude1, mLongitude2;
+    TextView mTempText, mDescText, mHumidityText, mLatitude1, mLongitude1;
 
     String mLongitude, mLatitude;
 
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 getWeatherData(mCityName.getText().toString().trim());
             }
         });
+
     }
 
     private void getWeatherData(String name) {
@@ -63,13 +64,12 @@ public class MainActivity extends AppCompatActivity {
                 mHumidityText.setText("Humidity: " + response.body().getMain().getHumidity());
                 // mNameOfCity.setText("Name of City: " + response.body().getName());
 
-                mLongitude = response.body().getCoordination().getLon().toString();
-                mLatitude = response.body().getCoordination().getLat().toString();
+                mLongitude = response.body().getCoordination().getLon();
+                mLatitude = response.body().getCoordination().getLat();
 
                 Toast.makeText(MainActivity.this,mLongitude + " & " + mLatitude,Toast.LENGTH_SHORT).show();
 
-                getWeatherData2(mLatitude,mLongitude);
-
+                //getWeatherData2(mLatitude,mLongitude);
             }
 
             @Override
@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void getWeatherData2(String lat, String lon) {
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Example2> call, Response<Example2> response) {
 
                 mLatitude1.setText(response.body().getLat());
-                mLongitude2.setText(response.body().getLon());
+                mLongitude1.setText(response.body().getLon());
             }
 
             @Override
