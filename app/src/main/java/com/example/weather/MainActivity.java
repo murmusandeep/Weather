@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 mText.setText(response.body().getCurrent().getCondition().getText());
 
                 Picasso.get()
-                        .load(response.body().getCurrent().getCondition().getIconURL())
+                        .load("http:" + response.body().getCurrent().getCondition().getIconURL())
                         .into(mIcon);
 
 //                Glide.with(MainActivity.this)
