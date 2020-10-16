@@ -7,14 +7,11 @@ public class ApiClient {
 
     private static Retrofit retrofit = null;
 
-    //http://api.weatherapi.com/v1/current.json?key=319d25570b234e6d8b5142438201510&q=London
-
-    //http://api.weatherapi.com/v1/current.json?q=London&key=319d25570b234e6d8b5142438201510
+    // http://api.weatherapi.com/v1/forecast.json?q=Delhi&key=319d25570b234e6d8b5142438201510&days=2
 
     public static Retrofit getClient() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    //.baseUrl("http://api.openweathermap.org/data/2.5/")
                     .baseUrl("http://api.weatherapi.com/v1/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
