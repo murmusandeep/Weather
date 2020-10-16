@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00BCD4"
+    android:background="@drawable/background1"
     tools:context=".MainActivity"
     android:orientation="vertical">
 
@@ -42,47 +42,102 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp" >
+        android:padding="20dp" >
 
         <TextView
-            android:id="@+id/tempText"
+            android:id="@+id/country"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/temperature"
-            android:textColor="#fff"
+            android:text="@string/country"
+            android:textColor="@color/teal_200"
             android:textSize="30sp" />
 
         <TextView
-            android:id="@+id/descText"
+            android:id="@+id/timeZone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/description"
-            android:textColor="#fff"
+            android:text="@string/time_zone"
+            android:textColor="@color/teal_200"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/humidityText"
+            android:id="@+id/localTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/local_time"
+            android:textColor="@color/teal_200"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/temperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/temperature"
+            android:textColor="@color/teal_200"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/windSpeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wind_speed"
+            android:textColor="@color/teal_200"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/windDirection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wind_direction"
+            android:textColor="@color/teal_200"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/humidity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/humidity"
-            android:textColor="#fff"
+            android:textColor="@color/teal_200"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/latitudeText"
+            android:id="@+id/cloud"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/latitude"
-            android:textColor="#fff"
+            android:text="@string/cloud"
+            android:textColor="@color/teal_200"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/longitudeText"
+            android:id="@+id/feelsLike"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/longitude"
-            android:textColor="#fff"
+            android:text="@string/feels_like"
+            android:textColor="@color/teal_200"
             android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text"
+            android:textColor="@color/teal_200"
+            android:textSize="20sp"/>
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/search"/>
+
     </LinearLayout>
 
 </LinearLayout>

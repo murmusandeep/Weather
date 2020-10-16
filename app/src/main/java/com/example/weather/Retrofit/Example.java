@@ -4,36 +4,25 @@ import com.google.gson.annotations.SerializedName;
 
 public class Example {
 
-    @SerializedName("coord")
-    private Coordination coordination;
+    @SerializedName("location")
+    private Location location;
 
-    @SerializedName("main")
-    private Main main;
+    @SerializedName("current")
+    private Current current;
 
-    @SerializedName("name")
-    private String name;
-
-    public String getName() {
-        return name;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
-    public Main getMain() {
-        return main;
+    public Current getCurrent() {
+        return current;
     }
 
-    public void setMain(Main main) {
-        this.main = main;
-    }
-
-    public Coordination getCoordination() {
-        return coordination;
-    }
-
-    public void setCoordination(Coordination coordination) {
-        this.coordination = coordination;
+    public void setCurrent(Current current) {
+        this.current = current;
     }
 }

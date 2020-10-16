@@ -2,19 +2,18 @@ package com.example.weather;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.weather.Retrofit.ApiClient;
 import com.example.weather.Retrofit.ApiInterface;
 import com.example.weather.Retrofit.Example;
-import com.example.weather.Retrofit.Example2;
+import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,10 +23,13 @@ public class MainActivity extends AppCompatActivity {
 
     EditText mCityName;
     ImageView mSearch;
-    TextView mNameOfCity;
-    TextView mTempText, mDescText, mHumidityText, mLatitude1, mLongitude1;
 
-    String mLongitude, mLatitude;
+    TextView mCountry, mTimeZone, mLocalTime;
+
+    TextView mTemperature, mWindSpeed, mWindDirection, mHumidity, mCloud, mFeelslike;
+
+    TextView mText;
+    ImageView mIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +37,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mSearch = findViewById(R.id.search);
-        mTempText = findViewById(R.id.tempText);
-        mDescText = findViewById(R.id.descText);
-        mHumidityText = findViewById(R.id.humidityText);
         mCityName = findViewById(R.id.cityName);
 
+        mCountry = findViewById(R.id.country);
+        mTimeZone = findViewById(R.id.timeZone);
+        mLocalTime = findViewById(R.id.localTime);
+
+        mTemperature = findViewById(R.id.temperature);
+        mWindSpeed = findViewById(R.id.windSpeed);
+        mWindDirection = findViewById(R.id.windDirection);
+        mHumidity = findViewById(R.id.humidity);
+        mCloud = findViewById(R.id.cloud);
+        mFeelslike = findViewById(R.id.feelsLike);
+
+        mText = findViewById(R.id.text);
+        mIcon = findViewById(R.id.icon);
 
         mSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,17 +71,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Example> call, Response<Example> response) {
 
-                mTempText.setText("Temperature: " + response.body().getMain().getTemp() + " °C");
-                mDescText.setText("Feels Likes: " + response.body().getMain().getFeels_like());
-                mHumidityText.setText("Humidity: " + response.body().getMain().getHumidity());
-                // mNameOfCity.setText("Name of City: " + response.body().getName());
+                mCountry.setText("Country: " + response.body().getLocation().getCountry());
+                mTimeZone.setText("Time Zone: " + response.body().getLocation().getTimeZone());
+                mLocalTime.setText("Local Time: " + response.body().getLocation().getLocalTime());
 
-                mLongitude = response.body().getCoordination().getLon();
-                mLatitude = response.body().getCoordination().getLat();
+                mTemperature.setText("Temperature: " + response.body().getCurrent().getTemp() + " °C");
+                mWindSpeed.setText("Wind Speed: " + response.body().getCurrent().getWindSpeed() + " Km");
+                mWindDirection.setText("Wind Direction: " + response.body().getCurrent().getWindDirection());
+                mHumidity.setText("Humidity: " + response.body().getCurrent().getHumidity() + " %");
+                mCloud.setText("Cloud: " + response.body().getCurrent().getCloud() + " %");
+                mFeelslike.setText("Feels Like: " + response.body().getCurrent().getFeelslike() + " °C");
 
-                Toast.makeText(MainActivity.this,mLongitude + " & " + mLatitude,Toast.LENGTH_SHORT).show();
+                mText.setText(response.body().getCurrent().getCondition().getText());
 
-                //getWeatherData2(mLatitude,mLongitude);
+                Picasso.get()
+                        .load(response.body().getCurrent().getCondition().getIconURL())
+                        .into(mIcon);
+
+//                Glide.with(MainActivity.this)
+//                        .load(response.body().getCurrent().getCondition().getIconURL())
+//                        .into(mIcon);
+
             }
 
             @Override
@@ -80,24 +102,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void getWeatherData2(String lat, String lon) {
-
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-
-        Call<Example2> call2 = apiInterface.getWeatherData2(lat, lon);
-
-        call2.enqueue(new Callback<Example2>() {
-            @Override
-            public void onResponse(Call<Example2> call, Response<Example2> response) {
-
-                mLatitude1.setText(response.body().getLat());
-                mLongitude1.setText(response.body().getLon());
-            }
-
-            @Override
-            public void onFailure(Call<Example2> call, Throwable t) {
-
-            }
-        });
-    }
 }
