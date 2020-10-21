@@ -2,6 +2,8 @@ package com.example.weather.Retrofit;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Example {
 
     @SerializedName("location")
@@ -9,6 +11,9 @@ public class Example {
 
     @SerializedName("current")
     private Current current;
+
+    @SerializedName("forecast")
+    Forecast forecast;
 
     public Location getLocation() {
         return location;
@@ -24,5 +29,13 @@ public class Example {
 
     public void setCurrent(Current current) {
         this.current = current;
+    }
+
+    public Forecast getForecast() {
+        return forecast;
+    }
+
+    public void setForecast(Forecast forecast) {
+        this.forecast = forecast;
     }
 }

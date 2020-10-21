@@ -9,6 +9,11 @@
     <string name="humidity">Humidity</string>
     <string name="wind_direction">Wind Direction</string>
     <string name="wind_speed">Wind Speed</string>
-    <string name="temperature">Temperature</string>
     <string name="text">Text</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="day_after_tomorrow">Day after Tomorrow</string>
+    <string name="temperature">Temperature</string>
+    <string name="date">Date</string>
+    <string name="min_temperature">Min. Temperature</string>
+    <string name="max_temperature">Max. Temperature</string>
 </resources>

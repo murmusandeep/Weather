@@ -2,14 +2,14 @@ package com.example.weather;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.weather.Retrofit.ApiClient;
 import com.example.weather.Retrofit.ApiInterface;
 import com.example.weather.Retrofit.Example;
@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
     TextView mText;
     ImageView mIcon;
+
+    ImageView mImage1;
+    TextView mMaxTemperature, mMinTemperature, mDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
         mText = findViewById(R.id.text);
         mIcon = findViewById(R.id.icon);
 
+        mImage1 = findViewById(R.id.image1);
+        mMaxTemperature = findViewById(R.id.maxTemperature);
+        mMinTemperature = findViewById(R.id.minTemperature);
+        mDate = findViewById(R.id.date);
+
         mSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,37 +68,57 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //  startActivity(new Intent(MainActivity.this, SecondActivity.class));
+
     }
 
     private void getWeatherData(String name) {
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<Example> call = apiInterface.getWeatherData(name);
 
         call.enqueue(new Callback<Example>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<Example> call, Response<Example> response) {
 
-                mCountry.setText("Country: " + response.body().getLocation().getCountry());
-                mTimeZone.setText("Time Zone: " + response.body().getLocation().getTimeZone());
-                mLocalTime.setText("Local Time: " + response.body().getLocation().getLocalTime());
+                if (response.code() == 400) {
+                    Toast.makeText(MainActivity.this, "You have not entered city name or Location not found.", Toast.LENGTH_SHORT).show();
+                }
 
-                mTemperature.setText("Temperature: " + response.body().getCurrent().getTemp() + " °C");
-                mWindSpeed.setText("Wind Speed: " + response.body().getCurrent().getWindSpeed() + " Km");
-                mWindDirection.setText("Wind Direction: " + response.body().getCurrent().getWindDirection());
-                mHumidity.setText("Humidity: " + response.body().getCurrent().getHumidity() + " %");
-                mCloud.setText("Cloud: " + response.body().getCurrent().getCloud() + " %");
-                mFeelslike.setText("Feels Like: " + response.body().getCurrent().getFeelslike() + " °C");
+                else if(response.code() == 401) {
+                    Toast.makeText(MainActivity.this, "API key provided is invalid or API key not provided.", Toast.LENGTH_SHORT).show();
+                }
 
-                mText.setText(response.body().getCurrent().getCondition().getText());
+                else if (response.code() == 403) {
+                    Toast.makeText(MainActivity.this, "API key has exceeded calls per month quota.", Toast.LENGTH_SHORT).show();
+                }
 
-                Picasso.get()
-                        .load("http:" + response.body().getCurrent().getCondition().getIconURL())
-                        .into(mIcon);
+                else {
+                    mCountry.setText("Country: " + response.body().getLocation().getCountry());
+                    mTimeZone.setText("Time Zone: " + response.body().getLocation().getTimeZone());
+                    mLocalTime.setText("Local Time: " + response.body().getLocation().getLocalTime());
+
+                    mTemperature.setText("Temperature: " + response.body().getCurrent().getTemp() + "°C");
+                    mWindSpeed.setText("Wind Speed: " + response.body().getCurrent().getWindSpeed() + " Km");
+                    mWindDirection.setText("Wind Direction: " + response.body().getCurrent().getWindDirection());
+                    mHumidity.setText("Humidity: " + response.body().getCurrent().getHumidity() + " %");
+                    mCloud.setText("Cloud: " + response.body().getCurrent().getCloud() + " %");
+                    mFeelslike.setText("Feels Like: " + response.body().getCurrent().getFeelslike() + " °C");
+
+                    mText.setText(response.body().getCurrent().getCondition().getText());
+
+                    Picasso.get()
+                            .load("http:" + response.body().getCurrent().getCondition().getIconURL())
+                            .into(mIcon);
 
 //                Glide.with(MainActivity.this)
-//                        .load(response.body().getCurrent().getCondition().getIconURL())
+//                        .load("http:" + response.body().getCurrent().getCondition().getIconURL())
 //                        .into(mIcon);
+
+                    mDate.setText(response.body().getForecast().getForecastDayList().get(0).getNextDayWeather().getDate());
+
+                }
 
             }
 
@@ -99,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
 }
