@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.example.weather.Retrofit.ApiClient;
 import com.example.weather.Retrofit.ApiInterface;
-import com.example.weather.Retrofit.Example;
+import com.example.weather.Retrofit.WeatherData;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
@@ -74,13 +74,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void getWeatherData(String name) {
 
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<Example> call = apiInterface.getWeatherData(name);
+        ApiInterface apiInterface = ApiClient.getClient(MainActivity.this).create(ApiInterface.class);
+        Call<WeatherData> call = apiInterface.getWeatherData(name);
 
-        call.enqueue(new Callback<Example>() {
+        call.enqueue(new Callback<WeatherData>() {
             @SuppressLint("SetTextI18n")
             @Override
-            public void onResponse(Call<Example> call, Response<Example> response) {
+            public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
 
                 if (response.code() == 400) {
                     Toast.makeText(MainActivity.this, "You have not entered city name or Location not found.", Toast.LENGTH_SHORT).show();
@@ -116,14 +116,16 @@ public class MainActivity extends AppCompatActivity {
 //                        .load("http:" + response.body().getCurrent().getCondition().getIconURL())
 //                        .into(mIcon);
 
-                    mDate.setText(response.body().getForecast().getForecastDayList().get(0).getNextDayWeather().getDate());
+                    //mDate.setText(response.body().getForecast().getForecastDayList().get(0).getDate());
+
+                // int size = response.body().getForecast().getForecastDayList().size();
 
                 }
 
             }
 
             @Override
-            public void onFailure(Call<Example> call, Throwable t) {
+            public void onFailure(Call<WeatherData> call, Throwable t) {
 
             }
         });

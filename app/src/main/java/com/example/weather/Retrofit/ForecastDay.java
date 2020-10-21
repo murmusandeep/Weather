@@ -4,13 +4,25 @@ import com.google.gson.annotations.SerializedName;
 
 public class ForecastDay {
 
-    public NextDayWeather nextDayWeather;
+    @SerializedName("date")
+    String date;
 
-    public NextDayWeather getNextDayWeather() {
-        return nextDayWeather;
+    @SerializedName("day")
+    Day day;
+
+    public String getDate() {
+        return date;
     }
 
-    public void setNextDayWeather(NextDayWeather nextDayWeather) {
-        this.nextDayWeather = nextDayWeather;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Day getDay() {
+        return day;
+    }
+
+    public void setDay(Day day) {
+        this.day = day;
     }
 }

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Example {
+public class WeatherData {
 
     @SerializedName("location")
     private Location location;
@@ -13,7 +13,7 @@ public class Example {
     private Current current;
 
     @SerializedName("forecast")
-    Forecast forecast;
+    private Forecast forecast;
 
     public Location getLocation() {
         return location;
