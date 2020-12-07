@@ -6,22 +6,11 @@ import java.util.List;
 
 public class WeatherData {
 
-    @SerializedName("location")
-    private Location location;
-
     @SerializedName("current")
     private Current current;
 
     @SerializedName("forecast")
     private Forecast forecast;
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
 
     public Current getCurrent() {
         return current;

@@ -42,38 +42,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="5dp">
-
-        <TextView
-            android:id="@+id/country"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/country"
-            android:textColor="@color/teal_200"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/timeZone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/time_zone"
-            android:textColor="@color/teal_200"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/localTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/local_time"
-            android:textColor="@color/teal_200"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="20dp">
 
         <LinearLayout
@@ -159,64 +127,5 @@
             android:textSize="20sp" />
 
     </LinearLayout>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tomorrow"
-        android:textColor="@color/teal_200"
-        android:textSize="30sp"
-        android:layout_gravity="center"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        android:padding="8sp">
-
-        <ImageView
-            android:id="@+id/image1"
-            android:layout_width="150dp"
-            android:layout_height="125dp"
-            android:src="@drawable/sun"
-            android:layout_weight="1"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:padding="10sp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/date"
-                android:textColor="@color/teal_200"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/maxTemperature"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/max_temperature"
-                android:textColor="@color/teal_200"
-                android:textSize="20sp" />
-            <TextView
-                android:id="@+id/minTemperature"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/min_temperature"
-                android:textColor="@color/teal_200"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
 
 </LinearLayout>

@@ -24,15 +24,10 @@ public class MainActivity extends AppCompatActivity {
     EditText mCityName;
     ImageView mSearch;
 
-    TextView mCountry, mTimeZone, mLocalTime;
-
     TextView mTemperature, mWindSpeed, mWindDirection, mHumidity, mCloud, mFeelslike;
 
     TextView mText;
     ImageView mIcon;
-
-    ImageView mImage1;
-    TextView mMaxTemperature, mMinTemperature, mDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
         mSearch = findViewById(R.id.search);
         mCityName = findViewById(R.id.cityName);
-
-        mCountry = findViewById(R.id.country);
-        mTimeZone = findViewById(R.id.timeZone);
-        mLocalTime = findViewById(R.id.localTime);
 
         mTemperature = findViewById(R.id.temperature);
         mWindSpeed = findViewById(R.id.windSpeed);
@@ -55,11 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
         mText = findViewById(R.id.text);
         mIcon = findViewById(R.id.icon);
-
-        mImage1 = findViewById(R.id.image1);
-        mMaxTemperature = findViewById(R.id.maxTemperature);
-        mMinTemperature = findViewById(R.id.minTemperature);
-        mDate = findViewById(R.id.date);
 
         mSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,9 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 else {
-                    mCountry.setText("Country: " + response.body().getLocation().getCountry());
-                    mTimeZone.setText("Time Zone: " + response.body().getLocation().getTimeZone());
-                    mLocalTime.setText("Local Time: " + response.body().getLocation().getLocalTime());
 
                     mTemperature.setText("Temperature: " + response.body().getCurrent().getTemp() + "°C");
                     mWindSpeed.setText("Wind Speed: " + response.body().getCurrent().getWindSpeed() + " Km");
