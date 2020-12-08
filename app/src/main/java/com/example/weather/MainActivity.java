@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             @Override
             public void onClick(View v) {
                 getWeatherData(mCityName.getText().toString().trim());
+                mCity.setText(mCityName.getText().toString().trim());
             }
         });
     }
