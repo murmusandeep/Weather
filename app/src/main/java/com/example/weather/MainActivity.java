@@ -73,65 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void getWeatherData(String name) {
-
-        ApiInterface apiInterface = ApiClient.getClient(MainActivity.this).create(ApiInterface.class);
-        Call<WeatherData> call = apiInterface.getWeatherData(name);
-
-        call.enqueue(new Callback<WeatherData>() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
-
-                if (response.code() == 400) {
-                    Toast.makeText(MainActivity.this, "You have not entered city name or Location not found.", Toast.LENGTH_SHORT).show();
-                }
-
-                else if(response.code() == 401) {
-                    Toast.makeText(MainActivity.this, "API key provided is invalid or API key not provided.", Toast.LENGTH_SHORT).show();
-                }
-
-                else if (response.code() == 403) {
-                    Toast.makeText(MainActivity.this, "API key has exceeded calls per month quota.", Toast.LENGTH_SHORT).show();
-                }
-
-                else {
-                    mCountry.setText("Country: " + response.body().getLocation().getCountry());
-                    mTimeZone.setText("Time Zone: " + response.body().getLocation().getTimeZone());
-                    mLocalTime.setText("Local Time: " + response.body().getLocation().getLocalTime());
-
-                    mTemperature.setText("Temperature: " + response.body().getCurrent().getTemp() + "°C");
-                    mWindSpeed.setText("Wind Speed: " + response.body().getCurrent().getWindSpeed() + " Km");
-                    mWindDirection.setText("Wind Direction: " + response.body().getCurrent().getWindDirection());
-                    mHumidity.setText("Humidity: " + response.body().getCurrent().getHumidity() + " %");
-                    mCloud.setText("Cloud: " + response.body().getCurrent().getCloud() + " %");
-                    mFeelslike.setText("Feels Like: " + response.body().getCurrent().getFeelslike() + " °C");
-
-                    mText.setText(response.body().getCurrent().getCondition().getText());
-
-                    Picasso.get()
-                            .load("http:" + response.body().getCurrent().getCondition().getIconURL())
-                            .into(mIcon);
-
-//                Glide.with(MainActivity.this)
-//                        .load("http:" + response.body().getCurrent().getCondition().getIconURL())
-//                        .into(mIcon);
-
-                    //mDate.setText(response.body().getForecast().getForecastDayList().get(0).getDate());
-
-                // int size = response.body().getForecast().getForecastDayList().size();
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<WeatherData> call, Throwable t) {
-
-            }
-        });
-    }
-
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
