@@ -51,14 +51,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     LocationManager locationManager;
 
-    String city = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         grantPermission();
+        checkLocationIsEnableOrNot();
 
         mSearch = findViewById(R.id.search);
         mCityName = findViewById(R.id.cityName);
@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         mCity = findViewById(R.id.city);
 
-        checkLocationIsEnableOrNot();
         getLocation();
 
         mSearch.setOnClickListener(new View.OnClickListener() {
@@ -91,20 +90,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         try {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 5, this);
         } catch (SecurityException e) {
             e.printStackTrace();
         }
+
     }
 
     private void checkLocationIsEnableOrNot() {
@@ -132,7 +122,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            startActivity(getIntent());
                             startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
                         }
                     }).setNegativeButton("Cancel", null)
                     .show();
@@ -144,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 && ActivityCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+                    Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
         }
     }
 
@@ -216,7 +209,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
     }
 
     @Override
