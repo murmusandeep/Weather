@@ -3,6 +3,7 @@ package com.example.weather;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -26,50 +27,18 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText mCityName;
-    ImageView mSearch;
-
-    TextView mCountry, mTimeZone, mLocalTime;
-
-    TextView mTemperature, mWindSpeed, mWindDirection, mHumidity, mCloud, mFeelslike;
-
-    TextView mText;
-    ImageView mIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mSearch = findViewById(R.id.search);
-        mCityName = findViewById(R.id.cityName);
-
-        mCountry = findViewById(R.id.country);
-        mTimeZone = findViewById(R.id.timeZone);
-        mLocalTime = findViewById(R.id.localTime);
-
-        mTemperature = findViewById(R.id.temperature);
-        mWindSpeed = findViewById(R.id.windSpeed);
-        mWindDirection = findViewById(R.id.windDirection);
-        mHumidity = findViewById(R.id.humidity);
-        mCloud = findViewById(R.id.cloud);
-        mFeelslike = findViewById(R.id.feelsLike);
-
-        mText = findViewById(R.id.text);
-        mIcon = findViewById(R.id.icon);
+        ;
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new HomeFragment()).commit();
-
-//        mSearch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getWeatherData(mCityName.getText().toString().trim());
-//            }
-//        });
 
     }
 

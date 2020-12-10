@@ -35,6 +35,7 @@ public class HomeFragment extends Fragment {
     TextView mText;
     ImageView mIcon;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+
 
     private void getWeatherData(String name) {
 
