@@ -1,4 +1,4 @@
-package com.example.weather;
+package com.example.weather.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -14,9 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.weather.Retrofit.ApiClient;
-import com.example.weather.Retrofit.ApiInterface;
-import com.example.weather.Retrofit.WeatherData;
+import com.example.weather.R;
+import com.example.weather.Retrofit.service.ApiClient;
+import com.example.weather.Retrofit.service.ApiInterface;
+import com.example.weather.Retrofit.models.WeatherData;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
@@ -34,6 +35,8 @@ public class HomeFragment extends Fragment {
 
     TextView mText;
     ImageView mIcon;
+
+    String cityName = "";
 
 
     @Nullable
