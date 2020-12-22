@@ -18,6 +18,7 @@ import com.example.weather.R;
 import com.example.weather.Retrofit.service.ApiClient;
 import com.example.weather.Retrofit.service.ApiInterface;
 import com.example.weather.Retrofit.models.WeatherData;
+import com.example.weather.SingletonPattern.Singleton;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
@@ -66,7 +67,8 @@ public class HomeFragment extends Fragment {
         mSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getWeatherData(mCityName.getText().toString().trim());
+                cityName = mCityName.getText().toString().trim();
+                getWeatherData(cityName);
             }
         });
 
@@ -132,6 +134,12 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
 
 }
 
