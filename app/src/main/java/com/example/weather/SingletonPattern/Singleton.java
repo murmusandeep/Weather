@@ -14,117 +14,21 @@ import java.util.List;
 
 public class Singleton {
 
-    String mCountry;
-    String mTimeZone;
-    String mLocalTime;
+    String Country;
+    String TimeZone;
+    String LocalTime;
 
-    String mTemperature;
-    String mWindSpeed;
-    String mWindDirection;
-    String mHumidity;
-    String mCloud;
-    String mFeelslike;
+    String Temperature;
+    String WindSpeed;
+    String WindDirection;
+    String Humidity;
+    String Cloud;
 
-    String mText;
-    String mIcon;
+    String Feelslike;
 
-    Location location = new Location();
-    Current current = new Current();
-    Condition condition = new Condition();
+    String Text;
+    String Icon;
 
-
-    public String getmCountry() {
-        return mCountry;
-    }
-
-    public void setmCountry() {
-        mCountry = location.getCountry();;
-    }
-
-    public String getmTimeZone() {
-        return mTimeZone;
-    }
-
-    public void setmTimeZone() {
-        mTimeZone = location.getTimeZone();
-    }
-
-    public String getmLocalTime() {
-        return mLocalTime;
-    }
-
-    public void setmLocalTime() {
-        mLocalTime = location.getLocalTime();
-    }
-
-    public String getmTemperature() {
-        return mTemperature;
-    }
-
-    public void setmTemperature() {
-        mTemperature = current.getTemp();
-    }
-
-    public String getmWindSpeed() {
-        return mWindSpeed;
-    }
-
-    public void setmWindSpeed() {
-
-        mWindSpeed = current.getWindSpeed();
-
-
-
-    }
-
-    public String getmWindDirection() {
-        return mWindDirection;
-    }
-
-    public void setmWindDirection() {
-        mWindDirection = current.getWindDirection();
-    }
-
-    public String getmHumidity() {
-        return mHumidity;
-    }
-
-    public void setmHumidity() {
-        mHumidity = current.getHumidity();
-    }
-
-    public String getmCloud() {
-        return mCloud;
-    }
-
-    public void setmCloud() {
-        mCloud = current.getCloud();
-    }
-
-    public String getmFeelslike() {
-        return mFeelslike;
-    }
-
-    public void setmFeelslike() {
-        mFeelslike = current.getFeelslike();
-    }
-
-    public String getmText() {
-        return mText;
-    }
-
-    public void setmText() {
-        mText = condition.getText();
-
-    }
-
-    public String getmIcon() {
-        return mIcon;
-    }
-
-    public void setmIcon() {
-        mIcon = condition.getIconURL();
-    }
 
     private static Singleton instance = new Singleton();
 
@@ -133,6 +37,94 @@ public class Singleton {
 
     public static Singleton getInstance(){
         return instance;
+    }
+
+    public String getCountry() {
+        return Country;
+    }
+
+    public void setCountry(String country) {
+        Country = country;
+    }
+
+    public String getTimeZone() {
+        return TimeZone;
+    }
+
+    public void setTimeZone(String timeZone) {
+        TimeZone = timeZone;
+    }
+
+    public String getLocalTime() {
+        return LocalTime;
+    }
+
+    public void setLocalTime(String localTime) {
+        LocalTime = localTime;
+    }
+
+    public String getTemperature() {
+        return Temperature;
+    }
+
+    public void setTemperature(String temperature) {
+        Temperature = temperature;
+    }
+
+    public String getWindSpeed() {
+        return WindSpeed;
+    }
+
+    public void setWindSpeed(String windSpeed) {
+        WindSpeed = windSpeed;
+    }
+
+    public String getWindDirection() {
+        return WindDirection;
+    }
+
+    public void setWindDirection(String windDirection) {
+        WindDirection = windDirection;
+    }
+
+    public String getHumidity() {
+        return Humidity;
+    }
+
+    public void setHumidity(String humidity) {
+        Humidity = humidity;
+    }
+
+    public String getCloud() {
+        return Cloud;
+    }
+
+    public void setCloud(String cloud) {
+        Cloud = cloud;
+    }
+
+    public String getFeelslike() {
+        return Feelslike;
+    }
+
+    public void setFeelslike(String feelslike) {
+        Feelslike = feelslike;
+    }
+
+    public String getText() {
+        return Text;
+    }
+
+    public void setText(String text) {
+        Text = text;
+    }
+
+    public String getIcon() {
+        return Icon;
+    }
+
+    public void setIcon(String icon) {
+        Icon = icon;
     }
 
 }

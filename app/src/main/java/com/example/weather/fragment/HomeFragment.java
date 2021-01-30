@@ -1,6 +1,7 @@
 package com.example.weather.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.example.weather.R;
 import com.example.weather.Retrofit.service.ApiClient;
@@ -99,6 +99,23 @@ public class HomeFragment extends Fragment {
                 }
 
                 else {
+
+                    Singleton singleton = Singleton.getInstance();
+
+                    singleton.setCountry(response.body().getLocation().getCountry());
+                    singleton.setTimeZone(response.body().getLocation().getTimeZone());
+                    singleton.setLocalTime(response.body().getLocation().getLocalTime());
+
+                    singleton.setTemperature(response.body().getCurrent().getTemp() + "°C");
+                    singleton.setWindSpeed(response.body().getCurrent().getWindSpeed() + " Km");
+                    singleton.setWindDirection(response.body().getCurrent().getWindDirection());
+                    singleton.setHumidity(response.body().getCurrent().getHumidity() + " %");
+                    singleton.setCloud(response.body().getCurrent().getCloud() + " %");
+                    singleton.setFeelslike(response.body().getCurrent().getFeelslike() + " °C");
+
+                    singleton.setText(response.body().getCurrent().getCondition().getText());
+                    singleton.setIcon(response.body().getCurrent().getCondition().getIconURL());
+
                     mCountry.setText("Country: " + response.body().getLocation().getCountry());
                     mTimeZone.setText("Time Zone: " + response.body().getLocation().getTimeZone());
                     mLocalTime.setText("Local Time: " + response.body().getLocation().getLocalTime());
@@ -111,7 +128,6 @@ public class HomeFragment extends Fragment {
                     mFeelslike.setText("Feels Like: " + response.body().getCurrent().getFeelslike() + " °C");
 
                     mText.setText(response.body().getCurrent().getCondition().getText());
-
                     Picasso.get()
                             .load("http:" + response.body().getCurrent().getCondition().getIconURL())
                             .into(mIcon);
@@ -137,7 +153,24 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onResume() {
+
         super.onResume();
+
+//        Singleton singleton = Singleton.getInstance();
+//
+//        mCountry.setText(singleton.getCountry());
+//        mTimeZone.setText(singleton.getTimeZone());
+//        mLocalTime.setText(singleton.getLocalTime());
+//
+//
+//
+//        Picasso.get()
+//                .load("http:" + singleton.getIcon())
+//                .into(mIcon);
+
+
+
+
     }
 
 
