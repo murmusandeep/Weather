@@ -156,6 +156,24 @@ public class HomeFragment extends Fragment {
 
         super.onResume();
 
+        Singleton singleton = Singleton.getInstance();
+
+        mCountry.setText("Country: " + singleton.getCountry());
+        mTimeZone.setText("Time Zone: " + singleton.getTimeZone());
+        mLocalTime.setText("Local Time: " + singleton.getLocalTime());
+
+        mTemperature.setText("Temperature: " + singleton.getTemperature());
+
+        mWindSpeed.setText("Wind Speed: " + singleton.getWindSpeed());
+        mWindDirection.setText("Wind Direction: " + singleton.getWindDirection());
+        mHumidity.setText("Humidity: " + singleton.getHumidity());
+        mCloud.setText("Cloud: " + singleton.getCloud());
+        mFeelslike.setText("Feels Like: " + singleton.getFeelslike());
+
+        mText.setText(singleton.getText());
+        Picasso.get()
+                .load("http:" + singleton.getIcon())
+                .into(mIcon);
     }
 
 
