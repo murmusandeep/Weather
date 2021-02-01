@@ -55,10 +55,10 @@ dependencies {
     debugImplementation "com.github.chuckerteam.chucker:library:3.4.0"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.4.0"
 
-}
-
-dependencies {
+    implementation "androidx.fragment:fragment:1.2.5"
 
     implementation 'androidx.mediarouter:mediarouter:1.2.1'
     debugImplementation "com.readystatesoftware.chuck:library:1.1.0"
+
+
 }

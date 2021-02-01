@@ -1,7 +1,6 @@
 package com.example.weather.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +12,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.weather.R;
+import com.example.weather.Retrofit.models.WeatherData;
 import com.example.weather.Retrofit.service.ApiClient;
 import com.example.weather.Retrofit.service.ApiInterface;
-import com.example.weather.Retrofit.models.WeatherData;
 import com.example.weather.SingletonPattern.Singleton;
 import com.squareup.picasso.Picasso;
 
@@ -67,8 +67,8 @@ public class HomeFragment extends Fragment {
         mSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cityName = mCityName.getText().toString().trim();
-                getWeatherData(cityName);
+                //cityName = mCityName.getText().toString().trim();
+                getWeatherData(mCityName.getText().toString().trim());
             }
         });
 
@@ -155,21 +155,6 @@ public class HomeFragment extends Fragment {
     public void onResume() {
 
         super.onResume();
-
-//        Singleton singleton = Singleton.getInstance();
-//
-//        mCountry.setText(singleton.getCountry());
-//        mTimeZone.setText(singleton.getTimeZone());
-//        mLocalTime.setText(singleton.getLocalTime());
-//
-//
-//
-//        Picasso.get()
-//                .load("http:" + singleton.getIcon())
-//                .into(mIcon);
-
-
-
 
     }
 
