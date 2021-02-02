@@ -1,7 +1,18 @@
 package com.example.weather.fragment;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +23,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.weather.R;
@@ -19,13 +33,18 @@ import com.example.weather.Retrofit.models.WeatherData;
 import com.example.weather.Retrofit.service.ApiClient;
 import com.example.weather.Retrofit.service.ApiInterface;
 import com.example.weather.SingletonPattern.Singleton;
+import com.example.weather.activities.MainActivity;
 import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements LocationListener {
 
     EditText mCityName;
     ImageView mSearch;
@@ -39,6 +58,8 @@ public class HomeFragment extends Fragment {
 
     String cityName = "";
 
+    LocationManager locationManager;
+
 
     @Nullable
     @Override
@@ -46,6 +67,9 @@ public class HomeFragment extends Fragment {
 
         View view;
         view = inflater.inflate(R.layout.fragment_home,container,false);
+
+        grantPermission();
+        checkLocationIsEnableOrNot();
 
         mSearch = view.findViewById(R.id.search);
         mCityName = view.findViewById(R.id.cityName);
@@ -64,6 +88,8 @@ public class HomeFragment extends Fragment {
         mText = view.findViewById(R.id.text);
         mIcon = view.findViewById(R.id.icon);
 
+        getLocation();
+
         mSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +99,62 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void getLocation() {
+
+        try {
+
+            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 5, this);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void checkLocationIsEnableOrNot() {
+
+        LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        boolean gpsEnable = false;
+        boolean networkEnable = false;
+
+        try {
+            gpsEnable = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            networkEnable = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (!gpsEnable && !networkEnable) {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Enable GPS Service")
+                    .setCancelable(false)
+                    .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            getActivity().finish();
+                            startActivity(getActivity().getIntent());
+                            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+                        }
+                    }).setNegativeButton("Cancel", null)
+                    .show();
+        }
+    }
+
+    private void grantPermission() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
+        }
     }
 
 
@@ -102,16 +184,16 @@ public class HomeFragment extends Fragment {
 
                     Singleton singleton = Singleton.getInstance();
 
-                    singleton.setCountry(response.body().getLocation().getCountry());
-                    singleton.setTimeZone(response.body().getLocation().getTimeZone());
-                    singleton.setLocalTime(response.body().getLocation().getLocalTime());
+                    singleton.setCountry("Country: " + response.body().getLocation().getCountry());
+                    singleton.setTimeZone("Time Zone: " + response.body().getLocation().getTimeZone());
+                    singleton.setLocalTime("Local Time: " + response.body().getLocation().getLocalTime());
 
-                    singleton.setTemperature(response.body().getCurrent().getTemp() + "°C");
-                    singleton.setWindSpeed(response.body().getCurrent().getWindSpeed() + " Km");
-                    singleton.setWindDirection(response.body().getCurrent().getWindDirection());
-                    singleton.setHumidity(response.body().getCurrent().getHumidity() + " %");
-                    singleton.setCloud(response.body().getCurrent().getCloud() + " %");
-                    singleton.setFeelslike(response.body().getCurrent().getFeelslike() + " °C");
+                    singleton.setTemperature("Temperature: " + response.body().getCurrent().getTemp() + "°C");
+                    singleton.setWindSpeed("Wind Speed: " + response.body().getCurrent().getWindSpeed() + " Km");
+                    singleton.setWindDirection("Wind Direction: " + response.body().getCurrent().getWindDirection());
+                    singleton.setHumidity("Humidity: " + response.body().getCurrent().getHumidity() + " %");
+                    singleton.setCloud("Cloud: " + response.body().getCurrent().getCloud() + " %");
+                    singleton.setFeelslike("Feels Like: " + response.body().getCurrent().getFeelslike() + " °C");
 
                     singleton.setText(response.body().getCurrent().getCondition().getText());
                     singleton.setIcon(response.body().getCurrent().getCondition().getIconURL());
@@ -158,24 +240,55 @@ public class HomeFragment extends Fragment {
 
         Singleton singleton = Singleton.getInstance();
 
-        mCountry.setText("Country: " + singleton.getCountry());
-        mTimeZone.setText("Time Zone: " + singleton.getTimeZone());
-        mLocalTime.setText("Local Time: " + singleton.getLocalTime());
+        mCountry.setText(singleton.getCountry());
+        mTimeZone.setText(singleton.getTimeZone());
+        mLocalTime.setText(singleton.getLocalTime());
 
-        mTemperature.setText("Temperature: " + singleton.getTemperature());
+        mTemperature.setText(singleton.getTemperature());
 
-        mWindSpeed.setText("Wind Speed: " + singleton.getWindSpeed());
-        mWindDirection.setText("Wind Direction: " + singleton.getWindDirection());
-        mHumidity.setText("Humidity: " + singleton.getHumidity());
-        mCloud.setText("Cloud: " + singleton.getCloud());
-        mFeelslike.setText("Feels Like: " + singleton.getFeelslike());
+        mWindSpeed.setText(singleton.getWindSpeed());
+        mWindDirection.setText(singleton.getWindDirection());
+        mHumidity.setText(singleton.getHumidity());
+        mCloud.setText(singleton.getCloud());
+        mFeelslike.setText(singleton.getFeelslike());
 
         mText.setText(singleton.getText());
         Picasso.get()
-                .load("http:" + singleton.getIcon())
+                .load(singleton.getIcon())
                 .into(mIcon);
     }
 
 
+    @Override
+    public void onLocationChanged(Location location) {
+
+        try {
+            Geocoder geocoder = new Geocoder(getActivity().getApplicationContext(), Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+
+            mCityName.setText(addresses.get(0).getLocality());
+
+            getWeatherData(addresses.get(0).getLocality());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
 }
 
