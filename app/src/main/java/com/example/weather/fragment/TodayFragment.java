@@ -28,12 +28,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.weather.App;
 import com.example.weather.R;
 import com.example.weather.Retrofit.models.WeatherData;
 import com.example.weather.Retrofit.service.ApiClient;
 import com.example.weather.Retrofit.service.ApiInterface;
 import com.example.weather.SingletonPattern.Singleton;
-import com.example.weather.activities.MainActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -44,7 +44,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment implements LocationListener {
+public class TodayFragment extends Fragment implements LocationListener {
 
     EditText mCityName;
     ImageView mSearch;
@@ -56,6 +56,8 @@ public class HomeFragment extends Fragment implements LocationListener {
     TextView mText;
     ImageView mIcon;
 
+    TextView mDate;
+
     String cityName = "";
 
     LocationManager locationManager;
@@ -66,10 +68,11 @@ public class HomeFragment extends Fragment implements LocationListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view;
-        view = inflater.inflate(R.layout.fragment_home,container,false);
+        view = inflater.inflate(R.layout.fragment_today,container,false);
 
         grantPermission();
         checkLocationIsEnableOrNot();
+
 
         mSearch = view.findViewById(R.id.search);
         mCityName = view.findViewById(R.id.cityName);
@@ -88,7 +91,9 @@ public class HomeFragment extends Fragment implements LocationListener {
         mText = view.findViewById(R.id.text);
         mIcon = view.findViewById(R.id.icon);
 
-        getLocation();
+        mDate = view.findViewById(R.id.date);
+
+        //getLocation();
 
         mSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +104,12 @@ public class HomeFragment extends Fragment implements LocationListener {
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLocation();
     }
 
     private void getLocation() {
@@ -160,7 +171,7 @@ public class HomeFragment extends Fragment implements LocationListener {
 
     private void getWeatherData(String name) {
 
-        ApiInterface apiInterface = ApiClient.getClient(getActivity()).create(ApiInterface.class);
+        ApiInterface apiInterface = ApiClient.getClient(App.instance).create(ApiInterface.class);
         Call<WeatherData> call = apiInterface.getWeatherData(name);
 
         call.enqueue(new Callback<WeatherData>() {
@@ -198,6 +209,7 @@ public class HomeFragment extends Fragment implements LocationListener {
                     singleton.setText(response.body().getCurrent().getCondition().getText());
                     singleton.setIcon(response.body().getCurrent().getCondition().getIconURL());
 
+
                     mCountry.setText("Country: " + response.body().getLocation().getCountry());
                     mTimeZone.setText("Time Zone: " + response.body().getLocation().getTimeZone());
                     mLocalTime.setText("Local Time: " + response.body().getLocation().getLocalTime());
@@ -218,9 +230,8 @@ public class HomeFragment extends Fragment implements LocationListener {
 //                        .load("http:" + response.body().getCurrent().getCondition().getIconURL())
 //                        .into(mIcon);
 
-                    //mDate.setText(response.body().getForecast().getForecastDayList().get(0).getDate());
 
-                    // int size = response.body().getForecast().getForecastDayList().size();
+                   // mDate.setText(response.body().getForecast().getForecastDayList().get(0).getDate());
 
                 }
 
@@ -239,7 +250,6 @@ public class HomeFragment extends Fragment implements LocationListener {
         super.onResume();
 
         Singleton singleton = Singleton.getInstance();
-
         mCountry.setText(singleton.getCountry());
         mTimeZone.setText(singleton.getTimeZone());
         mLocalTime.setText(singleton.getLocalTime());
@@ -263,7 +273,7 @@ public class HomeFragment extends Fragment implements LocationListener {
     public void onLocationChanged(Location location) {
 
         try {
-            Geocoder geocoder = new Geocoder(getActivity().getApplicationContext(), Locale.getDefault());
+            Geocoder geocoder = new Geocoder(App.instance, Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
 
             mCityName.setText(addresses.get(0).getLocality());

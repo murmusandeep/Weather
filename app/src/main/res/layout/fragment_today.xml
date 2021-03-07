@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="2.5"
-            android:background="#fff"
+            android:background="#C6CECF"
             android:gravity="center"
             android:hint="@string/city"
             android:padding="8dp"
@@ -153,6 +153,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/feels_like"
+            android:textColor="@color/teal_200"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date"
             android:textColor="@color/teal_200"
             android:textSize="20sp" />
 
