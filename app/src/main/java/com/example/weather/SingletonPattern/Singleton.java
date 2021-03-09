@@ -29,6 +29,21 @@ public class Singleton {
     String Text;
     String Icon;
 
+    String MaxTemp1;
+    String MinTemp1;
+
+    String NextText1;
+    String NextIcon1;
+    String NextDate1;
+
+    String MaxTemp2;
+    String MinTemp2;
+
+    String NextText2;
+    String NextIcon2;
+    String NextDate2;
+
+
 
     private static Singleton instance = new Singleton();
 
@@ -127,4 +142,83 @@ public class Singleton {
         Icon = icon;
     }
 
+    public String getMaxTemp1() {
+        return MaxTemp1;
+    }
+
+    public void setMaxTemp1(String maxTemp1) {
+        MaxTemp1 = maxTemp1;
+    }
+
+    public String getMinTemp1() {
+        return MinTemp1;
+    }
+
+    public void setMinTemp1(String minTemp1) {
+        MinTemp1 = minTemp1;
+    }
+
+    public String getNextText1() {
+        return NextText1;
+    }
+
+    public void setNextText1(String nextText1) {
+        NextText1 = nextText1;
+    }
+
+    public String getNextIcon1() {
+        return NextIcon1;
+    }
+
+    public void setNextIcon1(String nextIcon1) {
+        NextIcon1 = nextIcon1;
+    }
+
+    public String getMaxTemp2() {
+        return MaxTemp2;
+    }
+
+    public void setMaxTemp2(String maxTemp2) {
+        MaxTemp2 = maxTemp2;
+    }
+
+    public String getMinTemp2() {
+        return MinTemp2;
+    }
+
+    public void setMinTemp2(String minTemp2) {
+        MinTemp2 = minTemp2;
+    }
+
+    public String getNextText2() {
+        return NextText2;
+    }
+
+    public void setNextText2(String nextText2) {
+        NextText2 = nextText2;
+    }
+
+    public String getNextIcon2() {
+        return NextIcon2;
+    }
+
+    public void setNextIcon2(String nextIcon2) {
+        NextIcon2 = nextIcon2;
+    }
+
+    public String getNextDate1() {
+        return NextDate1;
+    }
+
+    public void setNextDate1(String nextDate1) {
+        NextDate1 = nextDate1;
+    }
+
+    public String getNextDate2() {
+        return NextDate2;
+    }
+
+    public void setNextDate2(String nextDate2) {
+        NextDate2 = nextDate2;
+    }
 }

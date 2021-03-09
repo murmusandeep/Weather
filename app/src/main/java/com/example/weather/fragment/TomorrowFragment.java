@@ -13,37 +13,61 @@ import androidx.fragment.app.Fragment;
 
 import com.example.weather.R;
 import com.example.weather.SingletonPattern.Singleton;
+import com.squareup.picasso.Picasso;
 
 public class TomorrowFragment extends Fragment {
 
-    TextView mTCountry, mTTimeZone, mTLocalTime;
+    ImageView mNextIcon1, mNextIcon2;
 
-    TextView mTTemperature, mTWindSpeed, mTWindDirection, mTHumidity, mTCloud, mTFeelslike;
-
-    TextView mTText;
-    ImageView mTIcon;
+    TextView mMaxTemp1, mMaxTemp2;
+    TextView mMinTemp1, mMinTemp2;
+    TextView mNextText1, mNextText2;
+    TextView mNextDate1, mNextDate2;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view;
-        return inflater.inflate(R.layout.fragment_tomorrow,container,false);
+        view = inflater.inflate(R.layout.fragment_tomorrow,container,false);
 
-        //mTCountry = view.findViewById(R.id.tCountry);
-//        mTTimeZone = view.findViewById(R.id.tTimeZone);
-//        mTLocalTime = view.findViewById(R.id.tLocalTime);
-//
-//        mTTemperature = view.findViewById(R.id.tTemperature);
-//        mTWindSpeed = view.findViewById(R.id.tWindSpeed);
-//        mTWindDirection = view.findViewById(R.id.tWindDirection);
-//        mTHumidity = view.findViewById(R.id.tHumidity);
-//        mTCloud = view.findViewById(R.id.tCloud);
-//        mTFeelslike = view.findViewById(R.id.tFeelsLike);
-//
-//        mTText = view.findViewById(R.id.tText);
-//        mTIcon = view.findViewById(R.id.tIcon);
+        mNextIcon1 = view.findViewById(R.id.nextIcon1);
+        mMaxTemp1 = view.findViewById(R.id.maxTemp1);
+        mMinTemp1 = view.findViewById(R.id.minTemp1);
+        mNextText1 = view.findViewById(R.id.nextText1);
+        mNextDate1 = view.findViewById(R.id.nextDate1);
 
-        //return view;
+        mNextIcon2 = view.findViewById(R.id.nextIcon2);
+        mMaxTemp2 = view.findViewById(R.id.maxTemp2);
+        mMinTemp2 = view.findViewById(R.id.minTemp2);
+        mNextText2 = view.findViewById(R.id.nextText2);
+        mNextDate2 = view.findViewById(R.id.nextDate2);
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Singleton singleton = Singleton.getInstance();
+
+        //mTCountry.setText(singleton.getDate());
+
+        Picasso.get()
+                .load("http:" + singleton.getNextIcon1())
+                .into(mNextIcon1);
+        mMaxTemp1.setText(singleton.getMaxTemp1());
+        mMinTemp1.setText(singleton.getMinTemp1());
+        mNextText1.setText(singleton.getNextText1());
+        mNextDate1.setText(singleton.getNextDate1());
+
+        Picasso.get()
+                .load("http:" + singleton.getNextIcon2())
+                .into(mNextIcon2);
+        mMaxTemp2.setText(singleton.getMaxTemp2());
+        mMinTemp2.setText(singleton.getMinTemp2());
+        mNextText2.setText(singleton.getNextText2());
+        mNextDate2.setText(singleton.getNextDate2());
     }
 }

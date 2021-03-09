@@ -20,4 +20,6 @@
     <string name="setting">Setting</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
+    <string name="max_temp">Max. Temp</string>
+    <string name="min_temp">Min. Temp</string>
 </resources>

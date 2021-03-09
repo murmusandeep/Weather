@@ -56,8 +56,6 @@ public class TodayFragment extends Fragment implements LocationListener {
     TextView mText;
     ImageView mIcon;
 
-    TextView mDate;
-
     String cityName = "";
 
     LocationManager locationManager;
@@ -90,16 +88,13 @@ public class TodayFragment extends Fragment implements LocationListener {
 
         mText = view.findViewById(R.id.text);
         mIcon = view.findViewById(R.id.icon);
-
-        mDate = view.findViewById(R.id.date);
-
         //getLocation();
 
         mSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //cityName = mCityName.getText().toString().trim();
-                getWeatherData(mCityName.getText().toString().trim());
+                cityName = mCityName.getText().toString().trim();
+                getWeatherData(cityName);
             }
         });
 
@@ -209,6 +204,22 @@ public class TodayFragment extends Fragment implements LocationListener {
                     singleton.setText(response.body().getCurrent().getCondition().getText());
                     singleton.setIcon(response.body().getCurrent().getCondition().getIconURL());
 
+                    singleton.setNextIcon1(response.body().getForecast().getForecastDayList().get(1).getDay().getCondition().getIconURL());
+                    singleton.setMaxTemp1("Max. Temp: " + response.body().getForecast().getForecastDayList().get(1).getDay().getMaxTemp() + "°C");
+                    singleton.setMinTemp1("Min. Temp: " + response.body().getForecast().getForecastDayList().get(1).getDay().getMinTemp() + "°C");
+                    singleton.setNextText1(response.body().getForecast().getForecastDayList().get(1).getDay().getCondition().getText());
+                    singleton.setNextDate1(response.body().getForecast().getForecastDayList().get(1).getDate());
+
+                    singleton.setNextIcon2(response.body().getForecast().getForecastDayList().get(2).getDay().getCondition().getIconURL());
+                    singleton.setMaxTemp2("Max. Temp: " + response.body().getForecast().getForecastDayList().get(2).getDay().getMaxTemp() + "°C");
+                    singleton.setMinTemp2("Min. Temp: " + response.body().getForecast().getForecastDayList().get(2).getDay().getMinTemp() + "°C");
+                    singleton.setNextText2(response.body().getForecast().getForecastDayList().get(2).getDay().getCondition().getText());
+                    singleton.setNextDate2(response.body().getForecast().getForecastDayList().get(2).getDate());
+
+
+
+//                    singleton.setDate(response.body().getForecast().getForecastDayList().get(2).getDate());
+//                    mDate.setText(response.body().getForecast().getForecastDayList().get(2).getDate());
 
                     mCountry.setText("Country: " + response.body().getLocation().getCountry());
                     mTimeZone.setText("Time Zone: " + response.body().getLocation().getTimeZone());
@@ -231,7 +242,6 @@ public class TodayFragment extends Fragment implements LocationListener {
 //                        .into(mIcon);
 
 
-                   // mDate.setText(response.body().getForecast().getForecastDayList().get(0).getDate());
 
                 }
 
@@ -247,7 +257,7 @@ public class TodayFragment extends Fragment implements LocationListener {
     @Override
     public void onResume() {
 
-        super.onResume();
+
 
         Singleton singleton = Singleton.getInstance();
         mCountry.setText(singleton.getCountry());
@@ -264,8 +274,9 @@ public class TodayFragment extends Fragment implements LocationListener {
 
         mText.setText(singleton.getText());
         Picasso.get()
-                .load(singleton.getIcon())
+                .load("http:" + singleton.getIcon())
                 .into(mIcon);
+        super.onResume();
     }
 
 
@@ -278,7 +289,9 @@ public class TodayFragment extends Fragment implements LocationListener {
 
             mCityName.setText(addresses.get(0).getLocality());
 
+            //cityName = addresses.get(0).getLocality();
             getWeatherData(addresses.get(0).getLocality());
+            //mCityName.setText(cityName);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -300,5 +313,6 @@ public class TodayFragment extends Fragment implements LocationListener {
     public void onProviderDisabled(String provider) {
 
     }
+
 }
 

@@ -9,40 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="5dp">
-
-        <TextView
-            android:id="@+id/tCountry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/country"
-            android:textColor="@color/teal_20"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/tTimeZone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/time_zone"
-            android:textColor="@color/teal_20"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tLocalTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/local_time"
-            android:textColor="@color/teal_20"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="20dp">
+
+        <TextView
+            android:id="@+id/nextDate1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20sp"
+            android:paddingEnd="5sp"
+            android:textColor="@color/teal_20"
+            android:textSize="20sp"
+            android:text="Date"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,7 +28,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/tIcon"
+                android:id="@+id/nextIcon1"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/sun" />
@@ -61,32 +39,31 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tTemperature"
+                    android:id="@+id/maxTemp1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="20sp"
                     android:paddingEnd="5sp"
-                    android:text="@string/temperature"
+                    android:text="@string/max_temp"
                     android:textColor="@color/teal_20"
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/tHumidity"
+                    android:id="@+id/minTemp1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="20sp"
                     android:paddingEnd="5sp"
-                    android:text="@string/humidity"
+                    android:text="@string/min_temp"
                     android:textColor="@color/teal_20"
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/tWindSpeed"
+                    android:id="@+id/nextText1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="20sp"
                     android:paddingEnd="5sp"
-                    android:text="@string/wind_speed"
                     android:textColor="@color/teal_20"
                     android:textSize="20sp" />
 
@@ -94,39 +71,73 @@
             </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/teal_20"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tWindDirection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/wind_direction"
-            android:textColor="@color/teal_20"
-            android:textSize="20sp" />
-
-
-        <TextView
-            android:id="@+id/tCloud"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/cloud"
-            android:textColor="@color/teal_20"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tFeelsLike"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/feels_like"
-            android:textColor="@color/teal_20"
-            android:textSize="20sp" />
-
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
 
+        <TextView
+            android:id="@+id/nextDate2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20sp"
+            android:paddingEnd="5sp"
+            android:textColor="@color/teal_20"
+            android:textSize="20sp"
+            android:text="Date"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/nextIcon2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/sun" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/maxTemp2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20sp"
+                    android:paddingEnd="5sp"
+                    android:text="@string/max_temp"
+                    android:textColor="@color/teal_20"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/minTemp2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20sp"
+                    android:paddingEnd="5sp"
+                    android:text="@string/min_temp"
+                    android:textColor="@color/teal_20"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/nextText2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20sp"
+                    android:paddingEnd="5sp"
+                    android:textColor="@color/teal_20"
+                    android:textSize="20sp" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>
