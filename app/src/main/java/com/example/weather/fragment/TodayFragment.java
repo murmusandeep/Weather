@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -88,12 +89,19 @@ public class TodayFragment extends Fragment implements LocationListener {
 
         mText = view.findViewById(R.id.text);
         mIcon = view.findViewById(R.id.icon);
-        //getLocation();
+        //getLocationRegister();
+
+        //SharedPreferences sharedPreferences = requireActivity().getSharedPreferences();
 
         mSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cityName = mCityName.getText().toString().trim();
+
+                Singleton singleton = Singleton.getInstance();
+
+                singleton.setCityName(cityName);
+
                 getWeatherData(cityName);
             }
         });
@@ -101,13 +109,14 @@ public class TodayFragment extends Fragment implements LocationListener {
         return view;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        getLocation();
-    }
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        getLocationRegister();
+//    }
 
-    private void getLocation() {
+
+    private void getLocationRegister() {
 
         try {
 
@@ -221,6 +230,8 @@ public class TodayFragment extends Fragment implements LocationListener {
 //                    singleton.setDate(response.body().getForecast().getForecastDayList().get(2).getDate());
 //                    mDate.setText(response.body().getForecast().getForecastDayList().get(2).getDate());
 
+
+
                     mCountry.setText("Country: " + response.body().getLocation().getCountry());
                     mTimeZone.setText("Time Zone: " + response.body().getLocation().getTimeZone());
                     mLocalTime.setText("Local Time: " + response.body().getLocation().getLocalTime());
@@ -255,11 +266,20 @@ public class TodayFragment extends Fragment implements LocationListener {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+
+        locationManager.removeUpdates(this);
+
+    }
+
+    @Override
     public void onResume() {
 
-
+        getLocationRegister();
 
         Singleton singleton = Singleton.getInstance();
+        
         mCountry.setText(singleton.getCountry());
         mTimeZone.setText(singleton.getTimeZone());
         mLocalTime.setText(singleton.getLocalTime());
@@ -289,7 +309,9 @@ public class TodayFragment extends Fragment implements LocationListener {
 
             mCityName.setText(addresses.get(0).getLocality());
 
-            //cityName = addresses.get(0).getLocality();
+           //cityName = addresses.get(0).getLocality();
+
+
             getWeatherData(addresses.get(0).getLocality());
             //mCityName.setText(cityName);
 

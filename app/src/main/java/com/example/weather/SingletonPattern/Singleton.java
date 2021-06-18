@@ -43,7 +43,7 @@ public class Singleton {
     String NextIcon2;
     String NextDate2;
 
-
+    String CityName;
 
     private static Singleton instance = new Singleton();
 
@@ -220,5 +220,13 @@ public class Singleton {
 
     public void setNextDate2(String nextDate2) {
         NextDate2 = nextDate2;
+    }
+
+    public String getCityName() {
+        return CityName;
+    }
+
+    public void setCityName(String cityName) {
+        CityName = cityName;
     }
 }
