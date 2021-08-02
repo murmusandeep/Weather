@@ -1,4 +1,4 @@
-package com.example.weather.Retrofit;
+package com.example.weather.Retrofit.models;
 
 import com.google.gson.annotations.SerializedName;
 

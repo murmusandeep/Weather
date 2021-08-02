@@ -1,5 +1,6 @@
-package com.example.weather.Retrofit;
+package com.example.weather.Retrofit.models;
 
+import com.example.weather.Retrofit.models.Day;
 import com.google.gson.annotations.SerializedName;
 
 public class ForecastDay {
