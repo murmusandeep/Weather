@@ -67,9 +67,6 @@ public class MainActivity extends AppCompatActivity {
                 getWeatherData(mCityName.getText().toString().trim());
             }
         });
-
-        //  startActivity(new Intent(MainActivity.this, SecondActivity.class));
-
     }
 
     private void getWeatherData(String name) {
