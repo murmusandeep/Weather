@@ -14,7 +14,7 @@ public class ApiClient {
 
     private static Retrofit retrofit = null;
 
-    // http://api.weatherapi.com/v1/forecast.json?q=Delhi&key=319d25570b234e6d8b5142438201510&days=2
+    //http://api.weatherapi.com/v1/forecast.json?q=Delhi&key=319d25570b234e6d8b5142438201510&days=2
 
     public static Retrofit getClient(Context context) {
 

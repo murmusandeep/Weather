@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
     TextView mText;
     ImageView mIcon;
 
-    ImageView mImage1;
-    TextView mMaxTemperature, mMinTemperature, mDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
         mText = findViewById(R.id.text);
         mIcon = findViewById(R.id.icon);
-
-        mImage1 = findViewById(R.id.image1);
-        mMaxTemperature = findViewById(R.id.maxTemperature);
-        mMinTemperature = findViewById(R.id.minTemperature);
-        mDate = findViewById(R.id.date);
 
         mSearch.setOnClickListener(new View.OnClickListener() {
             @Override
