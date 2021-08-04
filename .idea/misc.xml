@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProject/Weather/app/src/main/res/drawable/edit_text_border.xml" value="0.2203125" />
         <entry key="..\:/AndroidStudioProject/Weather/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
       </map>
     </option>
