@@ -21,12 +21,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="2.5"
-            android:background="#fff"
+            android:background="@drawable/edit_text_border"
             android:gravity="center"
             android:hint="@string/city"
             android:padding="8dp"
-            android:textColor="#000"
-            android:textColorHint="#F44336"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
             android:textSize="16sp" />
 
         <ImageView
