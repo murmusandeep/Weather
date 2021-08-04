@@ -1,4 +1,4 @@
-package com.example.weather.Retrofit;
+package com.example.weather.Retrofit.service;
 
 import android.content.Context;
 

@@ -1,4 +1,6 @@
-package com.example.weather.Retrofit;
+package com.example.weather.Retrofit.service;
+
+import com.example.weather.Retrofit.models.WeatherData;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

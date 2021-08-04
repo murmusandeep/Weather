@@ -24,9 +24,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.weather.Retrofit.ApiClient;
-import com.example.weather.Retrofit.ApiInterface;
-import com.example.weather.Retrofit.WeatherData;
+import com.example.weather.Retrofit.service.ApiClient;
+import com.example.weather.Retrofit.service.ApiInterface;
+import com.example.weather.Retrofit.models.WeatherData;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -171,14 +171,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     Picasso.get()
                             .load("http:" + response.body().getCurrent().getCondition().getIconURL())
                             .into(mIcon);
-
-//                Glide.with(MainActivity.this)
-//                        .load("http:" + response.body().getCurrent().getCondition().getIconURL())
-//                        .into(mIcon);
-
-                    //mDate.setText(response.body().getForecast().getForecastDayList().get(0).getDate());
-
-                    // int size = response.body().getForecast().getForecastDayList().size();
 
                 }
 
