@@ -57,9 +57,9 @@ public class TodayFragment extends Fragment implements LocationListener {
     TextView mText;
     ImageView mIcon;
 
-    String cityName = "";
-
     LocationManager locationManager;
+
+    String city = "";
 
 
     @Nullable
@@ -67,7 +67,7 @@ public class TodayFragment extends Fragment implements LocationListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view;
-        view = inflater.inflate(R.layout.fragment_today,container,false);
+        view = inflater.inflate(R.layout.fragment_today, container, false);
 
         grantPermission();
         checkLocationIsEnableOrNot();
@@ -91,30 +91,19 @@ public class TodayFragment extends Fragment implements LocationListener {
         mIcon = view.findViewById(R.id.icon);
         //getLocationRegister();
 
-        //SharedPreferences sharedPreferences = requireActivity().getSharedPreferences();
+        mSearch.setOnClickListener(v -> {
 
-        mSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cityName = mCityName.getText().toString().trim();
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("demo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                Singleton singleton = Singleton.getInstance();
+            editor.putString("str", mCityName.getText().toString().trim());
+            editor.apply();
 
-                singleton.setCityName(cityName);
-
-                getWeatherData(cityName);
-            }
+            getWeatherData(mCityName.getText().toString().trim());
         });
 
         return view;
     }
-
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        getLocationRegister();
-//    }
-
 
     private void getLocationRegister() {
 
@@ -185,17 +174,11 @@ public class TodayFragment extends Fragment implements LocationListener {
 
                 if (response.code() == 400) {
                     Toast.makeText(getActivity(), "You have not entered city name or Location not found.", Toast.LENGTH_SHORT).show();
-                }
-
-                else if(response.code() == 401) {
+                } else if (response.code() == 401) {
                     Toast.makeText(getActivity(), "API key provided is invalid or API key not provided.", Toast.LENGTH_SHORT).show();
-                }
-
-                else if (response.code() == 403) {
+                } else if (response.code() == 403) {
                     Toast.makeText(getActivity(), "API key has exceeded calls per month quota.", Toast.LENGTH_SHORT).show();
-                }
-
-                else {
+                } else {
 
                     Singleton singleton = Singleton.getInstance();
 
@@ -226,32 +209,25 @@ public class TodayFragment extends Fragment implements LocationListener {
                     singleton.setNextDate2(response.body().getForecast().getForecastDayList().get(2).getDate());
 
 
+                    mCountry.setText(singleton.getCountry());
+                    mTimeZone.setText(singleton.getTimeZone());
+                    mLocalTime.setText(singleton.getLocalTime());
 
-//                    singleton.setDate(response.body().getForecast().getForecastDayList().get(2).getDate());
-//                    mDate.setText(response.body().getForecast().getForecastDayList().get(2).getDate());
+                    mTemperature.setText(singleton.getTemperature());
+                    mWindSpeed.setText(singleton.getWindSpeed());
+                    mWindDirection.setText(singleton.getWindDirection());
+                    mHumidity.setText(singleton.getHumidity());
+                    mCloud.setText(singleton.getCloud());
+                    mFeelslike.setText(singleton.getFeelslike());
 
-
-
-                    mCountry.setText("Country: " + response.body().getLocation().getCountry());
-                    mTimeZone.setText("Time Zone: " + response.body().getLocation().getTimeZone());
-                    mLocalTime.setText("Local Time: " + response.body().getLocation().getLocalTime());
-
-                    mTemperature.setText("Temperature: " + response.body().getCurrent().getTemp() + "°C");
-                    mWindSpeed.setText("Wind Speed: " + response.body().getCurrent().getWindSpeed() + " Km");
-                    mWindDirection.setText("Wind Direction: " + response.body().getCurrent().getWindDirection());
-                    mHumidity.setText("Humidity: " + response.body().getCurrent().getHumidity() + " %");
-                    mCloud.setText("Cloud: " + response.body().getCurrent().getCloud() + " %");
-                    mFeelslike.setText("Feels Like: " + response.body().getCurrent().getFeelslike() + " °C");
-
-                    mText.setText(response.body().getCurrent().getCondition().getText());
+                    mText.setText(singleton.getText());
                     Picasso.get()
-                            .load("http:" + response.body().getCurrent().getCondition().getIconURL())
+                            .load("http:" + singleton.getIcon())
                             .into(mIcon);
 
 //                Glide.with(MainActivity.this)
 //                        .load("http:" + response.body().getCurrent().getCondition().getIconURL())
 //                        .into(mIcon);
-
 
 
                 }
@@ -279,7 +255,13 @@ public class TodayFragment extends Fragment implements LocationListener {
         getLocationRegister();
 
         Singleton singleton = Singleton.getInstance();
-        
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("demo", Context.MODE_PRIVATE);
+
+        String value = sharedPreferences.getString("str", singleton.getCityName());
+
+
+        mCityName.setText(value);
+
         mCountry.setText(singleton.getCountry());
         mTimeZone.setText(singleton.getTimeZone());
         mLocalTime.setText(singleton.getLocalTime());
@@ -305,15 +287,21 @@ public class TodayFragment extends Fragment implements LocationListener {
 
         try {
             Geocoder geocoder = new Geocoder(App.instance, Locale.getDefault());
-            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 
-            mCityName.setText(addresses.get(0).getLocality());
+            city = addresses.get(0).getLocality();
 
-           //cityName = addresses.get(0).getLocality();
+            Singleton singleton = Singleton.getInstance();
+            singleton.setCityName(city);
+
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("demo", Context.MODE_PRIVATE);
+
+            String value = sharedPreferences.getString("str", singleton.getCityName());
 
 
-            getWeatherData(addresses.get(0).getLocality());
-            //mCityName.setText(cityName);
+            mCityName.setText(value);
+            getWeatherData(value);
+
 
         } catch (IOException e) {
             e.printStackTrace();
