@@ -255,10 +255,9 @@ public class TodayFragment extends Fragment implements LocationListener {
         getLocationRegister();
 
         Singleton singleton = Singleton.getInstance();
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("demo", Context.MODE_PRIVATE);
-
         String value = sharedPreferences.getString("str", singleton.getCityName());
-
 
         mCityName.setText(value);
 
@@ -290,16 +289,11 @@ public class TodayFragment extends Fragment implements LocationListener {
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 
             city = addresses.get(0).getLocality();
-
             Singleton singleton = Singleton.getInstance();
             singleton.setCityName(city);
 
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("demo", Context.MODE_PRIVATE);
-
             String value = sharedPreferences.getString("str", singleton.getCityName());
-
-
-            mCityName.setText(value);
             getWeatherData(value);
 
 
