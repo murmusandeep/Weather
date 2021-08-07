@@ -102,6 +102,10 @@ public class TodayFragment extends Fragment implements LocationListener {
             getWeatherData(mCityName.getText().toString().trim());
         });
 
+
+
+
+
         return view;
     }
 
@@ -294,6 +298,7 @@ public class TodayFragment extends Fragment implements LocationListener {
 
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("demo", Context.MODE_PRIVATE);
             String value = sharedPreferences.getString("str", singleton.getCityName());
+            mCityName.setText(value);
             getWeatherData(value);
 
 
