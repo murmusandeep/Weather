@@ -10,7 +10,7 @@ public interface ApiInterface {
 
     //http://api.weatherapi.com/v1/forecast.json?q=Delhi&key=319d25570b234e6d8b5142438201510&days=2
 
-    @GET("forecast.json?key=319d25570b234e6d8b5142438201510&days=3")
+    @GET("forecast.json?key=b8f48217200e44b3a8e84021211508&days=3")
     Call<WeatherData> getWeatherData(@Query("q") String name);
 
 }

@@ -44,9 +44,6 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.tomorrow:
                             selectedFragment = new TomorrowFragment();
                             break;
-                        case R.id.setting:
-                            selectedFragment = new SettingFragment();
-                            break;
                     }
 
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
